@@ -1,0 +1,425 @@
+AppVeyor
+AppVeyor
+Sign in
+AutomatedLab
+Current build History
+LOG
+Merge pull request #499 from sk82jack/fix/BitLockerError
+Add BitLocker write protection check
+5.1.0.134
+2 days ago by Raimund Andrée [MSFT] (committed by GitHub)
+develop 39492c1c
+2 days ago in 1 min 54 sec
+Console Messages 17 Tests  Artifacts 19
+Build started
+git clone -q --branch=develop https://github.com/AutomatedLab/AutomatedLab.git C:\projects\automatedlab
+git checkout -qf 39492c1cc3aa949cffc2ccdf4042e3b7421a439a
+Running Install scripts
+git submodule -q update --init --recursive
+Patching AssemblyInfo
+Patching LabXml\Properties\AssemblyInfo.cs...OK
+Patching TestClient\Properties\AssemblyInfo.cs...OK
+nuget restore
+MSBuild auto-detection: using msbuild version '15.8.169.51996' from 'C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\bin'.
+Restoring NuGet package Microsoft.ApplicationInsights.2.5.1.
+Restoring NuGet package System.Diagnostics.DiagnosticSource.4.4.1.
+  GET https://api.nuget.org/v3-flatcontainer/microsoft.applicationinsights/2.5.1/microsoft.applicationinsights.2.5.1.nupkg
+  GET https://api.nuget.org/v3-flatcontainer/system.diagnostics.diagnosticsource/4.4.1/system.diagnostics.diagnosticsource.4.4.1.nupkg
+  OK https://api.nuget.org/v3-flatcontainer/system.diagnostics.diagnosticsource/4.4.1/system.diagnostics.diagnosticsource.4.4.1.nupkg 19ms
+Installing System.Diagnostics.DiagnosticSource 4.4.1.
+  OK https://api.nuget.org/v3-flatcontainer/microsoft.applicationinsights/2.5.1/microsoft.applicationinsights.2.5.1.nupkg 56ms
+Installing Microsoft.ApplicationInsights 2.5.1.
+Adding package 'Microsoft.ApplicationInsights.2.5.1' to folder 'C:\projects\automatedlab\packages'
+Adding package 'System.Diagnostics.DiagnosticSource.4.4.1' to folder 'C:\projects\automatedlab\packages'
+Added package 'Microsoft.ApplicationInsights.2.5.1' to folder 'C:\projects\automatedlab\packages'
+Added package 'System.Diagnostics.DiagnosticSource.4.4.1' to folder 'C:\projects\automatedlab\packages'
+NuGet Config files used:
+    C:\Users\appveyor\AppData\Roaming\NuGet\NuGet.Config
+    C:\Program Files (x86)\NuGet\Config\Microsoft.VisualStudio.Offline.config
+Feeds used:
+    C:\Users\appveyor\.nuget\packages\
+    https://api.nuget.org/v3/index.json
+    C:\Program Files (x86)\Microsoft SDKs\NuGetPackages\
+Installed:
+    2 package(s) to packages.config projects
+Write-Host "'before_build' block"
+Write-Host "Setting version number in files"
+Add-AppveyorMessage -Message "Setting version number in files" -Category Information
+gci -Filter *.psd1 -Recurse | foreach {(Get-Content $_.FullName -Raw) -replace "ModuleVersion += '\d\.\d\.\d\.\d'", "ModuleVersion = '$env:APPVEYOR_BUILD_VERSION'" | Out-File $_.FullName}
+Write-Host "Calling build script"
+.\Build.ps1
+'before_build' block
+Setting version number in files
+Calling build script
+Import-Module : The specified module 'BuildHelpers' with version '3.4.0' was not loaded because no valid module file was found in any module directory.
+At C:\projects\automatedlab\Build.ps1:42 char:17
++ ...             Import-Module -Name $moduleName -Force -RequiredVersion $ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceUnavailable: (BuildHelpers:String) [Import-Module], FileNotFoundException
+    + FullyQualifiedErrorId : Modules_ModuleWithVersionNotFound,Microsoft.PowerShell.Commands.ImportModuleCommand
+ 
+Import-Module : The specified module 'AutomatedLab' with version '3.4.0' was not loaded because no valid module file was found in any module directory.
+At C:\projects\automatedlab\Build.ps1:42 char:17
++ ...             Import-Module -Name $moduleName -Force -RequiredVersion $ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceUnavailable: (AutomatedLab:String) [Import-Module], FileNotFoundException
+    + FullyQualifiedErrorId : Modules_ModuleWithVersionNotFound,Microsoft.PowerShell.Commands.ImportModuleCommand
+ 
+Import-Module : The specified module 'Ships' with version '3.4.0' was not loaded because no valid module file was found in any module directory.
+At C:\projects\automatedlab\Build.ps1:42 char:17
++ ...             Import-Module -Name $moduleName -Force -RequiredVersion $ ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ResourceUnavailable: (Ships:String) [Import-Module], FileNotFoundException
+    + FullyQualifiedErrorId : Modules_ModuleWithVersionNotFound,Microsoft.PowerShell.Commands.ImportModuleCommand
+ 
+psake version 4.7.4
+Copyright (c) 2010-2017 James Kovacs & Contributors
+Executing Init
+----------------------------------------------------------------------
+Executing Test
+----------------------------------------------------------------------
+	STATUS: Testing with PowerShell 5
+Executing all tests in 'C:\projects\automatedlab\Tests'
+Tests completed in 0ms
+Tests Passed: 0, Failed: 0, Skipped: 0, Pending: 0, Inconclusive: 0 
+psake succeeded executing .\psake.ps1
+----------------------------------------------------------------------
+Build Time Report
+----------------------------------------------------------------------
+Name   Duration    
+----   --------    
+Init   00:00:00.017
+Test   00:00:00.819
+Total: 00:00:00.902
+msbuild "C:\projects\automatedlab\AutomatedLab.sln" /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+Microsoft (R) Build Engine version 15.8.169+g1ccb72aefa for .NET Framework
+Copyright (C) Microsoft Corporation. All rights reserved.
+Building the projects in this solution one at a time. To enable parallel build, please add the "/m" switch.
+Build started 11/10/2018 6:01:01 AM.
+Project "C:\projects\automatedlab\AutomatedLab.sln" on node 1 (default targets).
+ValidateSolutionConfiguration:
+  Building solution configuration "Debug|Mixed Platforms".
+Project "C:\projects\automatedlab\AutomatedLab.sln" (1) is building "C:\projects\automatedlab\Installer\Installer.wixproj" (2) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "obj\Debug\".
+  Creating directory "bin\Debug\".
+PreBuildEvent:
+  cd C:\projects\automatedlab\AutomatedLab.Common\
+  git reset --hard
+  git submodule -q update --init --recursive
+  git pull origin master
+  
+  echo Creating backup of file AutomatedLab.Common.psd1
+  copy C:\projects\automatedlab\AutomatedLab.Common\AutomatedLab.Common\AutomatedLab.Common.psd1 C:\projects\automatedlab\AutomatedLab.Common\AutomatedLab.Common\AutomatedLab.Common.psd1.original
+  echo Creating backup of file Includes.wxi
+  copy C:\projects\automatedlab\Installer\Includes.wxi C:\projects\automatedlab\Installer\Includes.wxi.original
+  PowerShell -NoProfile -ExecutionPolicy unrestricted -Command "& { $sb = [scriptblock]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String('DQAKACQAdgBlAHIAcwBpAG8AbgAgAD0AIAAoAEYAaQBuAGQALQBNAG8AZAB1AGwAZQAgAC0ATgBhAG0AZQAgAEEAdQB0AG8AbQBhAHQAZQBkAEwAYQBiAC4AQwBvAG0AbQBvAG4AIAAtAEUAcgByAG8AcgBBAGMAdABpAG8AbgAgAFMAaQBsAGUAbgB0AGwAeQBDAG8AbgB0AGkAbgB1AGUAKQAuAFYAZQByAHMAaQBvAG4AOwANAAoAaQBmACAAKAAtAG4AbwB0ACAAJAB2AGUAcgBzAGkAbwBuACkADQAKAHsADQAKACAAIAAgACAAJAB2AGUAcgBzAGkAbwBuACAAPQAgACgAUwBlAGwAZQBjAHQALQBTAHQAcgBpAG4AZwAgAC0AUABhAHQAaAAgAC4AXABBAHUAdABvAG0AYQB0AGUAZABMAGEAYgAuAEMAbwBtAG0AbwBuAFwAQQB1AHQAbwBtAGEAdABlAGQATABhAGIALgBDAG8AbQBtAG8AbgAuAHAAcwBkADEAIAAtAFAAYQB0AHQAZQByAG4AIAAiACgATQBvAGQAdQBsAGUAVgBlAHIAcwBpAG8AbgAoAFsAIAA9AF0AKwApACkAKAAnACkAKAA/ADwAVgBlAHIAcwBpAG8AbgA+AFwAZAB7ADEALAAyAH0AXAAuAFwAZAB7ADEALAAyAH0AXAAuAFwAZAB7ADEALAAyAH0AKQAiACkALgBNAGEAdABjAGgAZQBzAFsAMABdAC4ARwByAG8AdQBwAHMAWwAiAFYAZQByAHMAaQBvAG4AIgBdAC4AVgBhAGwAdQBlAA0ACgB9AA0ACgBXAHIAaQB0AGUALQBIAG8AcwB0ACAAIgBWAGUAcgBzAGkAbwBuACAAbwBmACAAQQB1AHQAbwBtAGEAdABlAGQATABhAGIALgBDAG8AbQBtAG8AbgAgAGkAcwAgACcAJAB2AGUAcgBzAGkAbwBuACcAIgANAAoAKAAnADwAPwB4AG0AbAAgAHYAZQByAHMAaQBvAG4APQAiADEALgAwACIAIABlAG4AYwBvAGQAaQBuAGcAPQAiAHUAdABmAC0AOAAiAD8APgA8AEkAbgBjAGwAdQBkAGUAIABJAGQAPQAiAFYAZQByAHMAaQBvAG4ATgB1AG0AYgBlAHIASQBuAGMAbAB1AGQAZQAiAD4APAA/AGQAZQBmAGkAbgBlACAAQQB1AHQAbwBtAGEAdABlAGQATABhAGIAQwBvAG0AbQBvAG4AVgBlAHIAcwBpAG8AbgA9ACIAewAwAH0AIgAgAD8APgA8AC8ASQBuAGMAbAB1AGQAZQA+ACcAIAAtAGYAIAAkAHYAZQByAHMAaQBvAG4AKQAgAHwAIABPAHUAdAAtAEYAaQBsAGUAIAAtAEYAaQBsAGUAUABhAHQAaAAgAC4ALgBcAEkAbgBzAHQAYQBsAGwAZQByAFwASQBuAGMAbAB1AGQAZQBzAC4AdwB4AGkAIAAtAEUAbgBjAG8AZABpAG4AZwAgAFUAVABGADgAOwANAAoAKABHAGUAdAAtAEMAbwBuAHQAZQBuAHQAIAAtAFAAYQB0AGgAIAAuAFwAQQB1AHQAbwBtAGEAdABlAGQATABhAGIALgBDAG8AbQBtAG8AbgBcAEEAdQB0AG8AbQBhAHQAZQBkAEwAYQBiAC4AQwBvAG0AbQBvAG4ALgBwAHMAZAAxACAALQBSAGEAdwApACAALQByAGUAcABsAGEAYwBlACAAIgAoAE0AbwBkAHUAbABlAFYAZQByAHMAaQBvAG4AKABbACAAPQBdACsAKQApACgAJwApACgAPwA8AFYAZQByAHMAaQBvAG4APgBcAGQAewAxACwAMgB9AFwALgBcAGQAewAxACwAMgB9AFwALgBcAGQAewAxACwAMgB9ACkAIgAsACAAIgBgACQAMQAnACQAdgBlAHIAcwBpAG8AbgAiACAAfAAgAE8AdQB0AC0ARgBpAGwAZQAgAC0ARgBpAGwAZQBQAGEAdABoACAALgBcAEEAdQB0AG8AbQBhAHQAZQBkAEwAYQBiAC4AQwBvAG0AbQBvAG4AXABBAHUAdABvAG0AYQB0AGUAZABMAGEAYgAuAEMAbwBtAG0AbwBuAC4AcABzAGQAMQANAAoA'))); &$sb }"
+  HEAD is now at 4d09370 Merge pull request #39 from AutomatedLab/develop
+  From https://github.com/AutomatedLab/AutomatedLab.Common
+   * branch            master     -> FETCH_HEAD
+  Already up to date.
+  Creating backup of file AutomatedLab.Common.psd1
+          1 file(s) copied.
+  Creating backup of file Includes.wxi
+          1 file(s) copied.
+  Version of AutomatedLab.Common is '1.1.96'
+Project "C:\projects\automatedlab\Installer\Installer.wixproj" (2) is building "C:\projects\automatedlab\LabXml\LabXml.csproj" (3:2) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "bin\Debug\".
+  Creating directory "obj\Debug\".
+CoreCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\csc.exe /noconfig /nowarn:1701,1702 /nostdlib+ /errorreport:prompt /warn:4 /define:DEBUG;TRACE /highentropyva+ /reference:C:\projects\automatedlab\packages\Microsoft.ApplicationInsights.2.5.1\lib\net45\Microsoft.ApplicationInsights.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.CSharp.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.DataSetExtensions.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /reference:C:\projects\automatedlab\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /reference:C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35\System.Management.Automation.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Net.Http.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.Linq.dll" /debug+ /debug:full /filealign:512 /optimize- /out:obj\Debug\AutomatedLab.dll /ruleset:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Team Tools\Static Analysis Tools\\Rule Sets\MinimumRecommendedRules.ruleset" /subsystemversion:6.00 /target:library /utf8output Azure\AzureAccount.cs Azure\AzureAvailabilitySet.cs Azure\AzureLocation.cs Azure\AzureOSImage.cs Azure\AzureRm.cs Azure\AzureRmSkuDescription.cs Azure\AzureRmHostNameSslState.cs Azure\AzureRmResourceGroup.cs Azure\AzureRmServerFarmWithRichSku.cs Azure\AzureRmService.cs Azure\AzureRmStorageAccount.cs Azure\AzureRmVmSize.cs Azure\AzureSubscription.cs Azure\AzureVirtualMachine.cs Azure\CopiedObject.cs Disks\Disk.cs Disks\ISO.cs Disks\LocalDisk.cs DynamicVariable.cs Enums.cs Extensions\Extensions.cs Lab\AzureConfiguration.cs Lab\Domain.cs Lab\Lab.cs Lab\Path.cs Lab\VMWareConfiguration.cs Machines\Machine.cs Machines\NetworkAdapter.cs Machines\OperatingSystem.cs Machines\PostInstallationActivity.cs Machines\Role.cs Machines\SoftwarePackage.cs Machines\User.cs Machines\Version.cs Machines\WindowsFeature.cs "Network\IPAddress Class\IPAddress AddOns.cs" "Network\IPAddress Class\IPAddress Conversion.cs" "Network\IPAddress Class\IPAddress Subnet.cs" "Network\IPAddress Class\IPAddress Defaults.cs" Network\IPAddressExtensions.cs Network\AzureSubnet.cs "Network\IPNetwork Class\BigIntegerExt.cs" Network\IPAddressCollection.cs "Network\IPNetwork Class\IPNetwork.cs" "Network\IPNetwork Class\IPNetwork2.cs" Network\IPNetworkCollection.cs Network\VirtualNetwork.cs PowerShellHelper.cs Properties\AssemblyInfo.cs Stores\DictionaryXmlStore.cs Stores\ListXmlStore.cs Stores\SerializableDictionary.cs Stores\SerializableList.cs Stores\XmlStore.cs Telemetry\LabTelemetry.cs Validator\ActiveDirectory\DomainInformation.cs Validator\ActiveDirectory\DuplicateDomainRoles.cs Validator\ActiveDirectory\EmptyDomains.cs Validator\ActiveDirectory\InvalidDomainCredentials.cs Validator\ActiveDirectory\DoaminHasNoRootOrFirstChildDC.cs Validator\ActiveDirectory\MachineInAnUndefinedDomain.cs Validator\ActiveDirectory\DomainWithTooLongName.cs Validator\DscPullServer\DscSqlServerPresent.cs Validator\DscPullServer\DscSqlServerKnown.cs Validator\FailoverCluster\ClusterNoDomain.cs Validator\FailoverCluster\DuplicateClusterIp.cs Validator\FailoverCluster\TooFewNodesForCluster.cs Validator\FailoverCluster\ClusterOperatingSystem.cs Validator\LabInformation\LabNameContainsIllegalCharacters.cs Validator\Machines\Azure\AzureSpecifiedRoleSizeNotFound.cs Validator\Machines\Azure\AzureDoesSupportMax8NetworkAdapters.cs Validator\Machines\HyperV\HypervMemorySettings.cs Validator\Machines\HyperV\HypervDoesSupportMax8NetworkAdapters.cs "Validator\Network\Azure Network\AzureVnetAddressSpaceTooSmall.cs" "Validator\Network\Azure Network\AzureVnetDnsServerInvalid.cs" "Validator\Network\Azure Network\AzureVnetDnsServerRequiredForActiveDirectory.cs" "Validator\Network\Azure Network\AzureVnetConnectsToUnknownVnet.cs" Validator\Disks\DiskAssignedMultipleTimes.cs Validator\Network\DuplicateAddressSpaceAssigned.cs "Validator\Network\HyperV Network\ExternalSwitchConnectsWifi.cs" "Validator\Network\HyperV Network\ExternalSwitchNameCollision.cs" "Validator\Network\HyperV Network\ExternalSwitchNetworkAdapterBridgedAlready.cs" "Validator\Network\HyperV Network\ExternalSwitchNetworkAdapterExists.cs" "Validator\Network\HyperV Network\RoutingRoleMustBeInRootDomainy.cs" "Validator\Network\HyperV Network\ExternalSwitchNoDhcp.cs" Validator\LabValidator.cs Validator\Machines\DuplicateMachineNames.cs Validator\Machines\MachineInformation.cs Validator\Machines\MachineRoleInformation.cs Validator\Machines\MachineWithTooLongName.cs Validator\Machines\NoMachinesDefined.cs Validator\Office\OfficeIsosExist.cs Validator\Orchestrator\OrchestratorIsosExist.cs Validator\Roles\UnknownRoleProperties.cs Validator\Roles\MandatoryRoleProperties.cs Validator\Roles\EmptyRoleProperties.cs Validator\Routing\RoutingRoleNotSupportedOnAzure.cs Validator\Routing\RoutingMachineHasAtLeastTwoNetworkCards.cs Validator\Sql\SqlIsosExist.cs Validator\Tfs\TfsIsosExist.cs Validator\ValidationMessage.cs Validator\ValidatorBase.cs Validator\VisualStudio\VisualStudioIsosExist.cs Validator\XmlValidator.cs Validator\Xml\PathValidator.cs "C:\Users\appveyor\AppData\Local\Temp\1\.NETFramework,Version=v4.5.AssemblyAttributes.cs"
+  Using shared compilation with compiler from directory: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn
+Azure\CopiedObject.cs(44,37): warning CS0693: Type parameter 'T' has the same name as the type parameter from outer type 'CopiedObject<T>' [C:\projects\automatedlab\LabXml\LabXml.csproj]
+Disks\ISO.cs(12,17): warning CS0618: 'MachineTypes' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\LabXml\LabXml.csproj]
+Machines\Machine.cs(44,37): warning CS0169: The field 'Machine.operatingSystemType' is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+Machines\Machine.cs(45,22): warning CS0169: The field 'Machine.gen2vmSupported' is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+Machines\Machine.cs(46,27): warning CS0169: The field 'Machine.linuxType' is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+Validator\ValidationMessage.cs(41,22): warning CS0414: The field 'ValidationMessageContainer.pass' is assigned but its value is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+_CopyFilesMarkedCopyLocal:
+  Copying file from "C:\projects\automatedlab\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.dll" to "bin\Debug\System.Diagnostics.DiagnosticSource.dll".
+  Copying file from "C:\Windows\assembly\GAC_MSIL\System.Management.Automation\1.0.0.0__31bf3856ad364e35\System.Management.Automation.dll" to "bin\Debug\System.Management.Automation.dll".
+  Copying file from "C:\projects\automatedlab\packages\Microsoft.ApplicationInsights.2.5.1\lib\net45\Microsoft.ApplicationInsights.dll" to "bin\Debug\Microsoft.ApplicationInsights.dll".
+  Copying file from "C:\projects\automatedlab\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net45\System.Diagnostics.DiagnosticSource.xml" to "bin\Debug\System.Diagnostics.DiagnosticSource.xml".
+  Creating "C:\projects\automatedlab\LabXml\obj\Debug\LabXml.csproj.CopyComplete" because "AlwaysCreate" was specified.
+_CopyAppConfigFile:
+  Copying file from "app.config" to "bin\Debug\AutomatedLab.dll.config".
+CopyFilesToOutputDirectory:
+  Copying file from "obj\Debug\AutomatedLab.dll" to "bin\Debug\AutomatedLab.dll".
+  LabXml -> C:\projects\automatedlab\LabXml\bin\Debug\AutomatedLab.dll
+  Copying file from "obj\Debug\AutomatedLab.pdb" to "bin\Debug\AutomatedLab.pdb".
+PostBuildEvent:
+  copy C:\projects\automatedlab\LabXml\bin\Debug\AutomatedLab.dll C:\projects\automatedlab\AutomatedLab\AutomatedLab.dll /Y
+  copy C:\projects\automatedlab\LabXml\bin\Debug\Microsoft.ApplicationInsights.dll C:\projects\automatedlab\AutomatedLab\Microsoft.ApplicationInsights.dll /Y
+  copy C:\projects\automatedlab\LabXml\bin\Debug\System.Diagnostics.DiagnosticSource.dll C:\projects\automatedlab\AutomatedLab\System.Diagnostics.DiagnosticSource.dll /Y
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+Done Building Project "C:\projects\automatedlab\LabXml\LabXml.csproj" (default targets).
+Compile:
+  C:\Program Files (x86)\WiX Toolset v3.11\bin\candle.exe -dDebug -d"DevEnvDir=*Undefined if not building from within Visual Studio*" -dSolutionDir=C:\projects\automatedlab\ -dSolutionExt=.sln -dSolutionFileName=AutomatedLab.sln -dSolutionName=AutomatedLab -dSolutionPath=C:\projects\automatedlab\AutomatedLab.sln -dConfiguration=Debug -dOutDir=bin\Debug\ -dPlatform=x64 -dProjectDir=C:\projects\automatedlab\Installer\ -dProjectExt=.wixproj -dProjectFileName=Installer.wixproj -dProjectName=Installer -dProjectPath=C:\projects\automatedlab\Installer\Installer.wixproj -dTargetDir=C:\projects\automatedlab\Installer\bin\Debug\ -dTargetExt=.msi -dTargetFileName=AutomatedLab.msi -dTargetName=AutomatedLab -dTargetPath=C:\projects\automatedlab\Installer\bin\Debug\AutomatedLab.msi -dLabXml.Configuration=Debug -d"LabXml.FullConfiguration=Debug|AnyCPU" -dLabXml.Platform=AnyCPU -dLabXml.ProjectDir=C:\projects\automatedlab\LabXml\ -dLabXml.ProjectExt=.csproj -dLabXml.ProjectFileName=LabXml.csproj -dLabXml.ProjectName=LabXml -dLabXml.ProjectPath=C:\projects\automatedlab\LabXml\LabXml.csproj -dLabXml.TargetDir=C:\projects\automatedlab\LabXml\bin\Debug\ -dLabXml.TargetExt=.dll -dLabXml.TargetFileName=AutomatedLab.dll -dLabXml.TargetName=AutomatedLab -dLabXml.TargetPath=C:\projects\automatedlab\LabXml\bin\Debug\AutomatedLab.dll -out obj\Debug\ -arch x64 Product.wxs
+  Windows Installer XML Toolset Compiler version 3.11.0.1701
+  Copyright (c) .NET Foundation and contributors. All rights reserved.
+  
+  Product.wxs
+Link:
+  C:\Program Files (x86)\WiX Toolset v3.11\bin\Light.exe -out C:\projects\automatedlab\Installer\bin\Debug\AutomatedLab.msi -pdbout C:\projects\automatedlab\Installer\bin\Debug\AutomatedLab.wixpdb -cultures:null -contentsfile obj\Debug\Installer.wixproj.BindContentsFileListnull.txt -outputsfile obj\Debug\Installer.wixproj.BindOutputsFileListnull.txt -builtoutputsfile obj\Debug\Installer.wixproj.BindBuiltOutputsFileListnull.txt -wixprojectfile C:\projects\automatedlab\Installer\Installer.wixproj obj\Debug\Product.wixobj
+  Windows Installer XML Toolset Linker version 3.11.0.1701
+  Copyright (c) .NET Foundation and contributors. All rights reserved.
+  
+C:\projects\automatedlab\Installer\Product.wxs(10): warning LGHT1076: ICE61: This product should remove only older versions of itself. The Maximum version is not less than the current product. (5.1.0.134 5.1.0.134) [C:\projects\automatedlab\Installer\Installer.wixproj]
+  Installer -> C:\projects\automatedlab\Installer\bin\Debug\AutomatedLab.msi
+PostBuildEvent:
+  echo Restoring AutomatedLab.Common.psd1
+  del C:\projects\automatedlab\AutomatedLab.Common\AutomatedLab.Common\AutomatedLab.Common.psd1
+  ren C:\projects\automatedlab\AutomatedLab.Common\AutomatedLab.Common\AutomatedLab.Common.psd1.original AutomatedLab.Common.psd1
+  
+  echo Restoring Includes.wxi
+  del C:\projects\automatedlab\Installer\Includes.wxi
+  ren C:\projects\automatedlab\Installer\Includes.wxi.original Includes.wxi
+  Restoring AutomatedLab.Common.psd1
+  Restoring Includes.wxi
+Done Building Project "C:\projects\automatedlab\Installer\Installer.wixproj" (default targets).
+Project "C:\projects\automatedlab\AutomatedLab.sln" (1) is building "C:\projects\automatedlab\TestClient\TestClient.csproj" (4) on node 1 (default targets).
+PrepareForBuild:
+  Creating directory "bin\Debug\".
+  Creating directory "obj\Debug\".
+ResolveAssemblyReferences:
+  Consider app.config remapping of assembly "System.Management.Automation, Culture=neutral, PublicKeyToken=31bf3856ad364e35" from Version "1.0.0.0" [C:\projects\automatedlab\LabXml\bin\Debug\System.Management.Automation.dll] to Version "3.0.0.0" [C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll] to solve conflict and get rid of warning.
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3276: Found conflicts between different versions of the same dependent assembly. Please set the "AutoGenerateBindingRedirects" property to true in the project file. For more information, see http://go.microsoft.com/fwlink/?LinkId=294190. [C:\projects\automatedlab\TestClient\TestClient.csproj]
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\csc.exe /noconfig /nowarn:1701,1702 /nostdlib+ /platform:anycpu32bitpreferred /errorreport:prompt /warn:4 /define:DEBUG;TRACE /highentropyva+ /reference:C:\projects\automatedlab\LabXml\bin\Debug\AutomatedLab.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.CSharp.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.Linq.dll" /debug+ /debug:full /filealign:512 /optimize- /out:obj\Debug\TestClient.exe /ruleset:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Team Tools\Static Analysis Tools\\Rule Sets\MinimumRecommendedRules.ruleset" /subsystemversion:6.00 /target:exe /utf8output Extensions.cs IpConfig.cs PowerShellHelper.cs Program.cs Properties\AssemblyInfo.cs "C:\Users\appveyor\AppData\Local\Temp\1\.NETFramework,Version=v4.5.AssemblyAttributes.cs"
+  Using shared compilation with compiler from directory: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn
+Program.cs(108,13): warning CS0162: Unreachable code detected [C:\projects\automatedlab\TestClient\TestClient.csproj]
+Program.cs(149,42): warning CS0168: The variable 'errors' is declared but never used [C:\projects\automatedlab\TestClient\TestClient.csproj]
+Program.cs(216,17): warning CS0219: The variable 'x' is assigned but its value is never used [C:\projects\automatedlab\TestClient\TestClient.csproj]
+Program.cs(289,21): warning CS0618: 'IsoImage.ImageType' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+Program.cs(289,33): warning CS0618: 'MachineTypes' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+Program.cs(295,21): warning CS0618: 'IsoImage.ImageType' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+Program.cs(295,33): warning CS0618: 'MachineTypes' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+_CopyFilesMarkedCopyLocal:
+  Copying file from "C:\projects\automatedlab\LabXml\bin\Debug\AutomatedLab.dll" to "bin\Debug\AutomatedLab.dll".
+  Copying file from "C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\System.Management.Automation.dll" to "bin\Debug\System.Management.Automation.dll".
+  Copying file from "C:\projects\automatedlab\LabXml\bin\Debug\Microsoft.ApplicationInsights.dll" to "bin\Debug\Microsoft.ApplicationInsights.dll".
+  Copying file from "C:\projects\automatedlab\LabXml\bin\Debug\AutomatedLab.pdb" to "bin\Debug\AutomatedLab.pdb".
+  Copying file from "C:\projects\automatedlab\LabXml\bin\Debug\AutomatedLab.dll.config" to "bin\Debug\AutomatedLab.dll.config".
+  Creating "C:\projects\automatedlab\TestClient\obj\Debug\TestClient.csproj.CopyComplete" because "AlwaysCreate" was specified.
+_CopyAppConfigFile:
+  Copying file from "App.config" to "bin\Debug\TestClient.exe.config".
+CopyFilesToOutputDirectory:
+  Copying file from "obj\Debug\TestClient.exe" to "bin\Debug\TestClient.exe".
+  TestClient -> C:\projects\automatedlab\TestClient\bin\Debug\TestClient.exe
+  Copying file from "obj\Debug\TestClient.pdb" to "bin\Debug\TestClient.pdb".
+Done Building Project "C:\projects\automatedlab\TestClient\TestClient.csproj" (default targets).
+Done Building Project "C:\projects\automatedlab\AutomatedLab.sln" (default targets).
+Build succeeded.
+"C:\projects\automatedlab\AutomatedLab.sln" (default target) (1) ->
+"C:\projects\automatedlab\Installer\Installer.wixproj" (default target) (2) ->
+"C:\projects\automatedlab\LabXml\LabXml.csproj" (default target) (3:2) ->
+(CoreCompile target) -> 
+  Azure\CopiedObject.cs(44,37): warning CS0693: Type parameter 'T' has the same name as the type parameter from outer type 'CopiedObject<T>' [C:\projects\automatedlab\LabXml\LabXml.csproj]
+  Disks\ISO.cs(12,17): warning CS0618: 'MachineTypes' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\LabXml\LabXml.csproj]
+  Machines\Machine.cs(44,37): warning CS0169: The field 'Machine.operatingSystemType' is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+  Machines\Machine.cs(45,22): warning CS0169: The field 'Machine.gen2vmSupported' is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+  Machines\Machine.cs(46,27): warning CS0169: The field 'Machine.linuxType' is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+  Validator\ValidationMessage.cs(41,22): warning CS0414: The field 'ValidationMessageContainer.pass' is assigned but its value is never used [C:\projects\automatedlab\LabXml\LabXml.csproj]
+"C:\projects\automatedlab\AutomatedLab.sln" (default target) (1) ->
+"C:\projects\automatedlab\Installer\Installer.wixproj" (default target) (2) ->
+(Link target) -> 
+  C:\projects\automatedlab\Installer\Product.wxs(10): warning LGHT1076: ICE61: This product should remove only older versions of itself. The Maximum version is not less than the current product. (5.1.0.134 5.1.0.134) [C:\projects\automatedlab\Installer\Installer.wixproj]
+"C:\projects\automatedlab\AutomatedLab.sln" (default target) (1) ->
+"C:\projects\automatedlab\TestClient\TestClient.csproj" (default target) (4) ->
+(ResolveAssemblyReferences target) -> 
+  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Microsoft.Common.CurrentVersion.targets(2110,5): warning MSB3276: Found conflicts between different versions of the same dependent assembly. Please set the "AutoGenerateBindingRedirects" property to true in the project file. For more information, see http://go.microsoft.com/fwlink/?LinkId=294190. [C:\projects\automatedlab\TestClient\TestClient.csproj]
+"C:\projects\automatedlab\AutomatedLab.sln" (default target) (1) ->
+"C:\projects\automatedlab\TestClient\TestClient.csproj" (default target) (4) ->
+(CoreCompile target) -> 
+  Program.cs(108,13): warning CS0162: Unreachable code detected [C:\projects\automatedlab\TestClient\TestClient.csproj]
+  Program.cs(149,42): warning CS0168: The variable 'errors' is declared but never used [C:\projects\automatedlab\TestClient\TestClient.csproj]
+  Program.cs(216,17): warning CS0219: The variable 'x' is assigned but its value is never used [C:\projects\automatedlab\TestClient\TestClient.csproj]
+  Program.cs(289,21): warning CS0618: 'IsoImage.ImageType' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+  Program.cs(289,33): warning CS0618: 'MachineTypes' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+  Program.cs(295,21): warning CS0618: 'IsoImage.ImageType' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+  Program.cs(295,33): warning CS0618: 'MachineTypes' is obsolete: 'No longer used in V2. Member still defined due to compatibility.' [C:\projects\automatedlab\TestClient\TestClient.csproj]
+    15 Warning(s)
+    0 Error(s)
+Time Elapsed 00:00:28.24
+Write-Host "'after_build' block"
+$Params = @{
+Path    = $env:APPVEYOR_BUILD_FOLDER
+Force   = $true
+Recurse = $false
+Verbose = $true
+}
+Invoke-PSDeploy @Params # Create nuget package artifacts
+Write-Host "Locating installer to push as artifact"
+Add-AppveyorMessage "Locating installer to push as artifact" -Category Information
+$msifile = Get-ChildItem -Recurse -Filter AutomatedLab.msi | Select-Object -First 1
+Push-AppVeyorArtifact $msifile.FullName -FileName $msifile.Name -DeploymentName alinstaller
+'after_build' block
+VERBOSE: Running Invoke-PSDeploy with ParameterSetName '__AllParameterSets' and params: 
+Key     Value                     
+---     -----                     
+Verbose True                      
+Path    {C:\projects\automatedlab}
+Recurse False                     
+Force   True                      
+VERBOSE: Working with 1 deployment files:
+C:\projects\automatedlab\automatedlab.psdeploy.ps1
+VERBOSE: Parsing 'C:\projects\automatedlab\automatedlab.psdeploy.ps1' from 'C:\projects\automatedlab'
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\AutomatedLab
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLab.zip] as Appveyor artifact
+Uploading artifact AutomatedLab.zip (918,010 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLab.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact AutomatedLab.5.1.0.134.nupkg (919,757 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\AutomatedLabDefinition
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabDefinition.zip] as Appveyor artifact
+Uploading artifact AutomatedLabDefinition.zip (43,556 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabDefinition.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact AutomatedLabDefinition.5.1.0.134.nupkg (45,328 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\AutomatedLabNotifications
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabNotifications.zip] as Appveyor artifact
+Uploading artifact AutomatedLabNotifications.zip (5,711 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabNotifications.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact AutomatedLabNotifications.5.1.0.134.nupkg (7,491 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\AutomatedLab.Ships
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLab.Ships.zip] as Appveyor artifact
+Uploading artifact AutomatedLab.Ships.zip (1,087 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLab.Ships.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact AutomatedLab.Ships.5.1.0.134.nupkg (2,838 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\AutomatedLabTest
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabTest.zip] as Appveyor artifact
+Uploading artifact AutomatedLabTest.zip (2,994 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabTest.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact AutomatedLabTest.5.1.0.134.nupkg (4,740 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\AutomatedLabUnattended
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabUnattended.zip] as Appveyor artifact
+Uploading artifact AutomatedLabUnattended.zip (37,790 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabUnattended.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact AutomatedLabUnattended.5.1.0.134.nupkg (39,559 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\AutomatedLabWorker
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabWorker.zip] as Appveyor artifact
+Uploading artifact AutomatedLabWorker.zip (52,652 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\AutomatedLabWorker.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact AutomatedLabWorker.5.1.0.134.nupkg (54,404 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\HostsFile
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\HostsFile.zip] as Appveyor artifact
+Uploading artifact HostsFile.zip (2,959 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\HostsFile.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact HostsFile.5.1.0.134.nupkg (4,679 bytes)...100%
+VERBOSE: Running Invoke-PSDeployment with ParameterSetName 'Map' and params: 
+Key                  Value           
+---                  -----           
+DeploymentParameters {AppVeyorModule}
+Force                True            
+VERBOSE: Deployments:
+Source            : C:\projects\automatedlab\PSLog
+DeploymentType    : AppVeyorModule
+DeploymentOptions : {Version}
+Targets           : AppVeyor
+Tags              : 
+VERBOSE: Starting deployment [DeveloperBuild] to AppVeyor
+VERBOSE: Pushing package [C:\projects\automatedlab\PSLog.zip] as Appveyor artifact
+Uploading artifact PSLog.zip (6,296 bytes)...100%
+VERBOSE: Pushing package [C:\projects\automatedlab\PSLog.5.1.0.134.nupkg] as Appveyor artifact
+Uploading artifact PSLog.5.1.0.134.nupkg (8,000 bytes)...100%
+Locating installer to push as artifact
+Uploading artifact AutomatedLab.msi (3,731,532 bytes)...100%
+Discovering tests...OK
+"GitHub" deployment for branch "master" has been skipped because current branch is "develop"
+Write-Host "'on_finish' block"
+#$blockRdp = $true
+#iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+'on_finish' block
+Build success
+ 
