@@ -1,17 +1,17 @@
 # Xamarin.Android
 # Build a Xamarin.Android app and Xamarin.UITest assembly.
 # Add steps that test, sign, and distribute the app, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/xamarin
 
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: 'windows-2019'
 
 variables:
   buildConfiguration: 'Release'
   outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
 
 steps:
-- task: NuGetToolInstaller@0
+- task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
@@ -22,6 +22,7 @@ steps:
     projectFile: '**/*droid*.csproj'
     outputDirectory: '$(outputDirectory)'
     configuration: '$(buildConfiguration)'
+    msbuildVersionOption: '16.0'
 
 - task: AndroidSigning@3
   inputs:
