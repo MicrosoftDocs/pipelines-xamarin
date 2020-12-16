@@ -1,7 +1,7 @@
 # Xamarin.iOS
 # Build a Xamarin.iOS app and Xamarin.UITest assembly.
 # Add steps that install certificates, test, sign, and distribute the app, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/xamarin
+# https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/xamarin
 
 pool:
   vmImage: 'macOS-10.14'
